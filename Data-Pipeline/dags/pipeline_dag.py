@@ -12,7 +12,7 @@ Pipeline Flow:
 
 GCS Bucket : courseweave-ai-data
 DVC Remote : gs://courseweave-ai-data/dvc-storage
-Alerts     : Slack webhook (SLACK_WEBHOOK_URL_NEW in .env)
+Alerts     : Slack webhook (SLACK_WEBHOOK_URL in .env)
 
 Fix Notes:
 - Uses local temp JSON files instead of XCom for large DataFrames
@@ -68,9 +68,9 @@ default_args = {
 
 def send_slack_alert(message: str, is_error: bool = False) -> None:
     """Send a message to Slack via webhook."""
-    webhook_url = os.getenv("SLACK_WEBHOOK_URL_NEW")
+    webhook_url = os.getenv("SLACK_WEBHOOK_URL")
     if not webhook_url:
-        logging.warning("SLACK_WEBHOOK_URL_NEW not set — skipping Slack alert.")
+        logging.warning("SLACK_WEBHOOK_URL not set — skipping Slack alert.")
         return
 
     icon    = "🚨" if is_error else "✅"
